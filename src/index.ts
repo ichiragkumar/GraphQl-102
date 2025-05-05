@@ -1,43 +1,31 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import dotenv from "dotenv";
+dotenv.config();
 
-const typeDefs = `
-  type Book {
-    title: String
-    author: String
-  }
 
-  type Query {
-    books: [Book]
-  }
-`;
+const port = Number(process.env.PORT) || 4000;
+import {ApolloServer} from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { schema } from "./graphql/schema.js";
 
-const resolvers = {
-    Query: {
-      books: () => books,
+
+const server = new ApolloServer({
+    typeDefs: schema,
+    resolvers: {
+      Query: {
+        hello: () => "Hello World",
+        wow: () => "wow",
+      },
     },
-  };
-
- const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-  });
-
-
-
-const books = [
-    {
-      title: 'The Awakening',
-      author: 'Kate Chopin',
-    },
-    {
-      title: 'City of Glass',
-      author: 'Paul Auster',
-    },
-  ];
-
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
   });
   
-  console.log(`🚀  Server ready at: ${url}`);
+
+startStandaloneServer(server,  {
+    listen :{
+        port,
+        host: "localhost",
+
+    }
+
+}).then(({url}) => {
+    console.log(`🚀 Server ready at http://localhost:${port}`);
+});
