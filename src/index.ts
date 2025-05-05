@@ -8,6 +8,10 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { schema } from "./graphql/schema.js";
 import { connectToDB } from "./config/db.js";
 import { getAllUsers } from "./controllers/user.js";
+import { getAllCourses } from "./controllers/course.js";
+import { getAllProducts } from "./controllers/product.js";
+import { getAllSections } from "./controllers/section.js";
+import { getAllLectures } from "./controllers/lecture.js";
 
 
 const server = new ApolloServer({
@@ -16,7 +20,11 @@ const server = new ApolloServer({
       Query: {
         hello: () => "Hello World",
         wow: () => "wow",
-        users: getAllUsers
+        users: getAllUsers,
+        courses: getAllCourses,
+        products: getAllProducts,
+        sections: getAllSections,
+        lectures: getAllLectures
       },
     },
   });

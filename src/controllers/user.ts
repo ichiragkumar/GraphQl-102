@@ -2,14 +2,14 @@ import { User } from "../models/user.model.js";
 
 
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async () => {
     const allUsers = await User.find();
-    res.status(200).json(allUsers);
+    return allUsers;
 };
 
 export const getUserById = async (req, res) => {
     const user = await User.findById(req.params.id);
-    res.status(200).json(user);
+    return user
 };
 
 export const createUser = async (req, res) => {
