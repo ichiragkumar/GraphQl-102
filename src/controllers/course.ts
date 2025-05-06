@@ -7,9 +7,11 @@ export const getAllCourses = async () => {
     return allCourses;
 };
 
-export const getCourseById = async (req, res) => {
-    const course = await Course.findById(req.params.id);
-    return course
+export const getCourseById = async (req, arg: {id:string}) => {
+    console.log(arg.id)
+    const course = (await Course.findById(arg.id)).populate("instructor");
+    return course;
+
 };
 
 export const createCourse = async (req, res) => {

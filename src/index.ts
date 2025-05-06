@@ -7,11 +7,12 @@ import {ApolloServer} from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { schema } from "./graphql/schema.js";
 import { connectToDB } from "./config/db.js";
-import { getAllUsers } from "./controllers/user.js";
-import { getAllCourses } from "./controllers/course.js";
+import { getAllUsers, getUserById } from "./controllers/user.js";
+import { getAllCourses, getCourseById } from "./controllers/course.js";
 import { getAllProducts } from "./controllers/product.js";
 import { getAllSections } from "./controllers/section.js";
 import { getAllLectures } from "./controllers/lecture.js";
+import { Course } from "./models/course.model.js";
 
 
 const server = new ApolloServer({
@@ -24,8 +25,15 @@ const server = new ApolloServer({
         courses: getAllCourses,
         products: getAllProducts,
         sections: getAllSections,
-        lectures: getAllLectures
+        lectures: getAllLectures,
+        course : getCourseById
       },
+
+      Course: {
+        instructor :async ( course ) =>{
+          await getUserById(course.instructor)
+        }
+      }
     },
   });
   

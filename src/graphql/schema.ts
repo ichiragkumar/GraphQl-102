@@ -38,6 +38,9 @@ export const schema = `#graphql
     soldCount: Int!
     courseDuration: Int!
     studentsBoughtList: [String!]!
+
+    #we can also , make instructor to User Type
+    # instructor: User!
     instructor: String!
     category: String!
     createdAt: String!
@@ -83,5 +86,7 @@ export const schema = `#graphql
     products : [Product]
     sections  : [Section]
     lectures  : [Lecture]
+
+    course(id:ID!): Course
   }
 `;

@@ -7,8 +7,8 @@ export const getAllUsers = async () => {
     return allUsers;
 };
 
-export const getUserById = async (req, res) => {
-    const user = await User.findById(req.params.id);
+export const getUserById = async ( id :string) => {
+    const user = await User.findById(id);
     return user
 };
 
